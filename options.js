@@ -19,6 +19,8 @@ function Add_element() {
   options.appendChild(document.createElement("br"));
   
   empty(options_list)
+  Add_To_Options_list()
+  
 }
 
 function Remove_element() {
@@ -26,7 +28,7 @@ function Remove_element() {
   options.removeChild(options.lastElementChild)
   
   empty(options_list)
-
+  Add_To_Options_list()
 
   option_no--;
   if (option_no <= 0) {
