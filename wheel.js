@@ -1,12 +1,5 @@
-class Arc {
-  constructor(st_angle, end_angle) {
-    this.st_angle = st_angle;
-    this.end_angle = end_angle;
-  }
-}
-
 class Option {
-  constructor(text,start,end) {
+  constructor(text, start, end) {
     this.text = text;
     this.start = start;
     this.end = end;
@@ -22,7 +15,7 @@ let add = document.getElementById("add_option");
 let remove = document.getElementById("remove_option");
 let turn = document.getElementById("turn");
 let option_div = document.getElementsByClassName("option");
-const empty = arr => arr.length = 0;
+const empty = (arr) => (arr.length = 0);
 
 let colors = [
   "#FF0000",
@@ -59,11 +52,22 @@ function draw() {
   rectMode(CENTER);
   noFill();
 
+  //display arc
   for (let i = 0; i < option_count; i++) {
     fill(colors[i]);
     arc(0, 0, circ_radius, circ_radius, start, end); // arc(center_x,centre_y,r_x,r_y,start_angle,end_angle)
     start += theta;
     end += theta;
+  }
+
+  // display text
+  for (let i = 0; i < options.length; i++) {
+    ang = (options[i].start + options[i].end) / 2;
+    fill(5, 3, 0)
+    noStroke()
+    textSize(32);
+    textAlign(CENTER, CENTER);
+    text(options[i].text, 300 * sin(ang), 300 * cos(ang));
   }
 }
 
@@ -89,15 +93,15 @@ function remove_option() {
 
 remove.addEventListener("click", remove_option);
 
-
-
-function Mod_options(){
-    empty(options)
-    let theta = 360 / option_count;
-    let start = 0;
-    let end = theta;
-    for(i=0 ; i< option_count;i++){
-        options.push(new Option(option_div[i].value,start,end));
-    }
+function Mod_options() {
+  empty(options);
+  let theta = 360 / option_count;
+  let start = 0;
+  let end = theta;
+  for (i = 0; i < option_count; i++) {
+    options.push(new Option(option_div[i].value, start, end));
+    start += theta;
+    end += theta;
+  }
 }
-turn.addEventListener("click",Mod_options);
+turn.addEventListener("click", Mod_options);
