@@ -17,6 +17,8 @@ let turn = document.getElementById("turn");
 let option_div = document.getElementsByClassName("option");
 const empty = (arr) => (arr.length = 0);
 let arrow;
+let rotateCondition = false;
+let x_axis;
 
 let colors = [
   "#FF0000",
@@ -41,6 +43,7 @@ function setup() {
     (circ_radius / 2 - 100) * sin(0),
     (circ_radius / 2 - 100) * cos(0)
   );
+  x_axis = createVector(circ_radius/2, 0)
 }
 function draw() {
   angleMode(DEGREES);
@@ -81,9 +84,13 @@ function draw() {
   strokeWeight(10);
   line(0, 0, arrow.x, arrow.y);
   circle(arrow.x, arrow.y, 20);
+  if(rotateCondition){
+    RotateArrow()
+  }
 }
 
 //---------
+
 function add_option() {
   let input = document.createElement("input");
   input.type = "text";
@@ -120,10 +127,23 @@ function Mod_options() {
 turn.addEventListener("click", Mod_options);
 
 function RotateArrow() {
-  let random_number = random(99999, 999999);
-  for (i = 0; i <= random_number; i++) {
-    setInterval(arrow.rotate(random(0, 10)),100)
+  arrow.rotate(random(-5, 50));
+}
+
+turn.addEventListener("click", ChangeCondition);
+
+function ChangeCondition() {
+  if (rotateCondition == true) {
+    rotateCondition = false;
+  } else {
+    rotateCondition = true;
   }
 }
 
-turn.addEventListener("click", RotateArrow);
+function StopCondition(){
+  setTimeout(() => {
+   rotateCondition = false 
+  }, 1000);
+}
+
+turn.addEventListener("click",StopCondition)
