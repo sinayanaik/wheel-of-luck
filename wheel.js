@@ -16,6 +16,7 @@ let remove = document.getElementById("remove_option");
 let turn = document.getElementById("turn");
 let option_div = document.getElementsByClassName("option");
 const empty = (arr) => (arr.length = 0);
+let arrow;
 
 let colors = [
   "#FF0000",
@@ -36,6 +37,10 @@ function setup() {
   screen.parent("wheel");
   background(240);
   circ_radius = min(width, height) - 100;
+  arrow = createVector(
+    (circ_radius / 2 - 100) * sin(0),
+    (circ_radius / 2 - 100) * cos(0)
+  );
 }
 function draw() {
   angleMode(DEGREES);
@@ -62,15 +67,23 @@ function draw() {
 
   // display text
   for (let i = 0; i < options.length; i++) {
-    ang = (options[i].start + options[i].end) / 2;
-    fill(5, 3, 0)
-    noStroke()
+    ang = options[i].start + theta / 2;
+    let x = (circ_radius / 4) * cos(ang);
+    let y = (circ_radius / 4) * sin(ang);
+    fill(5, 3, 0);
+    noStroke();
     textSize(32);
     textAlign(CENTER, CENTER);
-    text(options[i].text, 300 * sin(ang), 300 * cos(ang));
+    text(options[i].text, x, y);
   }
+  // display arrow
+  stroke(10);
+  strokeWeight(10);
+  line(0, 0, arrow.x, arrow.y);
+  circle(arrow.x, arrow.y, 20);
 }
 
+//---------
 function add_option() {
   let input = document.createElement("input");
   input.type = "text";
@@ -105,3 +118,12 @@ function Mod_options() {
   }
 }
 turn.addEventListener("click", Mod_options);
+
+function RotateArrow() {
+  let random_number = random(99999, 999999);
+  for (i = 0; i <= random_number; i++) {
+    setInterval(arrow.rotate(random(0, 10)),100)
+  }
+}
+
+turn.addEventListener("click", RotateArrow);

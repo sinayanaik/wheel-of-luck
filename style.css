@@ -1,5 +1,5 @@
 body{
-    text-align: center;
+    text-align: center !important;
 }
 .option{
     margin-top: 10px;
