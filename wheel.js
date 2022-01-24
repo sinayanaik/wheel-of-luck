@@ -19,6 +19,7 @@ const empty = (arr) => (arr.length = 0);
 let arrow;
 let rotateCondition = false;
 let x_axis;
+let dimention;
 
 let colors = [
   "#FF0000",
@@ -35,7 +36,8 @@ let colors = [
 ];
 
 function setup() {
-  const screen = createCanvas(windowWidth, windowHeight);
+  dimention = min(windowWidth,windowHeight)
+  const screen = createCanvas(dimention, dimention);
   screen.parent("wheel");
   background(240);
   circ_radius = min(width, height) - 100;
